@@ -116,7 +116,7 @@
             align-items: center;
         }
 
-        /* Bottone personalizzato */
+        /* Bottone personalizzato con effetto pulsante */
         .my-button {
             position: relative;
             display: inline-block;
@@ -132,6 +132,12 @@
             font-weight: bold;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         /* Effetto scorrimento lucido sul bottone */
         .my-button::before {
@@ -162,14 +168,11 @@
             height: 5px;
             transform: rotate(-45deg);
             background: #ff007f;
-            animation: disperse 6s ease-out forwards; 
-            /* Durata animazione personalizzabile; 
-               se vuoi cuori che vagano più a lungo, 
-               metti 15s, 20s... */
-            z-index: 0;   /* così stanno dietro al bottone */
+            animation: disperse 15s ease-out forwards; 
+            /* Durata animazione aumentata per rallentare i cuori */
+            z-index: 0;
             opacity: 0;
         }
-        /* Per creare la classica forma a cuore (due cerchietti in alto + quadrato ruotato) */
         .heart::before,
         .heart::after {
             content: "";
@@ -187,7 +190,6 @@
             top: 0;
             left: -2.5px;
         }
-        /* Keyframes per far disperdere i cuori in modo casuale */
         @keyframes disperse {
             0% {
                 transform: scale(1) 
@@ -200,7 +202,6 @@
                 opacity: 1;
             }
             100% {
-                /* ingrandisci e spara il cuore lontano su tutto lo schermo */
                 transform: scale(3)
                            translate(calc( 50vw * var(--rnd-x) - 25vw ), 
                                      calc( 50vh * var(--rnd-y) - 25vh ))
@@ -218,18 +219,17 @@
           font-size: 12px;
         }
     
-        /* Link senza sottolineatura / colore personalizzato */
         footer.footer a {
-          color: #ccc;           /* colore testo “spento” */
-          text-decoration: none; /* niente sottolineatura */
+          color: #ccc;
+          text-decoration: none;
           transition: color 0.2s;
         }
         footer.footer a:hover,
         footer.footer a:active,
         footer.footer a:focus,
         footer.footer a:visited {
-          color: #fff;           /* colore bianco all'hover o link visitato */
-          text-decoration: none; /* mantienilo senza sottolineatura */
+          color: #fff;
+          text-decoration: none;
         }
         
     </style>
@@ -239,8 +239,7 @@
     <div class="container">
         <!-- SEZIONE PROFILO / TESTO -->
         <section id="profile">
-            <!-- Immagine di esempio, sostituisci con la tua -->
-            <img src="https://cdn4.cdn-telegram.org/file/roWFBQDC4_I022ELaXQUYfUa-bfrY3qlsfCgy85tiUG6OvYy7G77lfOCRqBRFMWt840bB4F-zbGea_FGNWHIDtty2BbWog7DccuB5itwZ2NQTGw-dW9sX_Jc5yGiHvtx5Re1KsAvZIDLYz_rguekRXA9C01IIhvXeyGUI8MQqvLWBmkIE8n_-ZT3c7McRrZcGZ-JWAwzzoa0tsZfe5ShdwCjWdg0usDa0XIWO1xZg3jNR1KN0gaueMTR8BKQLWzrwFOMKBJugzMpwv5LgnpoESPDlJcwfzbYHAYwCCAy__0vuORKqzBwW-SdXCveipw229F1HQliJPqppiaz_jZ5nA.jpg">
+            <img src="https://cdn4.cdn-telegram.org/file/roWFBQDC4_I022ELaXQUYfUa-bfrY3qlsfCgy85tiUG6OvYy7G77lfOCRqBRFMWt840bB4F-zbGea_FGNWHIDtty2BbWog7DccuB5itwZ2NQTGw-dW9sX_Jc5yGiHvtx5Re1KsAvZIDLYz_rguekRXA9C01IIhvXeyGUI8MQqvLWBmkIE8n_-ZT3c7McRrZcGZ-JWAwzzoa0tsZfe5ShdwCjWdg0usDa0XIWO1xZg3jNR1KN0gaueMTR8BKQLWzrwFOMKBJugzMpwv5LgnpoESPDlJcwfzbYHAYwCCAy__0vuORKqzBwW-SdXCveipw229F1HQliJPqppiaz_jZ5nA.jpg" alt="Profile Image">
             <h1>Fun &amp; Love</h1>
             <p>Trova la tua anima gemella o divertiti a conoscere nuove persone!</p>
         </section>
@@ -254,9 +253,6 @@
                 Apri il Bot <span style="margin-left: 8px;">❤️</span>
             </a>
         </section>
-        <!-- Link alla pagina dei Termini e Condizioni -->
-        
-        
     </div>
 
     <footer class="footer">
@@ -264,22 +260,12 @@
     </footer>
 
     <script>
-        /* Se vuoi prendere il riferimento del bottone */
         const loveButton = document.getElementById('love-button');
 
-        /**
-         * Crea e aggiunge un cuoricino che verrà poi rimosso 
-         * dopo la fine dell’animazione.
-         */
-
-
-        
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
 
-            // Calcola la posizione di partenza: 
-            // al centro del bottone (all'incirca)
             const rect = loveButton.getBoundingClientRect();
             const startX = rect.left + rect.width / 2;
             const startY = rect.top + rect.height / 2;
@@ -287,21 +273,17 @@
             heart.style.left = startX + 'px';
             heart.style.top  = startY + 'px';
 
-            // Variabili CSS per spostare il cuore in direzioni casuali
             heart.style.setProperty('--rnd-x', Math.random());
             heart.style.setProperty('--rnd-y', Math.random());
 
-            // Aggiunge il cuoricino al body
             document.body.appendChild(heart);
 
-            // Rimuove il cuoricino dopo tot secondi 
-            // (dovrebbe corrispondere alla durata dell'animazione + un po' di margine)
+            // Aggiornato tempo di rimozione per la nuova durata dell'animazione
             setTimeout(() => {
                 heart.remove();
-            }, 25000);
+            }, 16000);  // 15s durata animazione + margine
         }
 
-        // Genera nuovi cuoricini a intervalli regolari (es. 1 secondo).
         setInterval(createHeart, 500);
     </script>
 </body>
