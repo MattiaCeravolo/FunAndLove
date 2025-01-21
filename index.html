@@ -209,8 +209,8 @@
         <!-- SEZIONE PROFILO / TESTO -->
         <section id="profile">
             <!-- Immagine di esempio, sostituisci con la tua -->
-            <img src="https://via.placeholder.com/150" alt="Profile Picture">
-            <h1>Incontri Fun &amp; Love</h1>
+            <img src="https://cdn4.cdn-telegram.org/file/roWFBQDC4_I022ELaXQUYfUa-bfrY3qlsfCgy85tiUG6OvYy7G77lfOCRqBRFMWt840bB4F-zbGea_FGNWHIDtty2BbWog7DccuB5itwZ2NQTGw-dW9sX_Jc5yGiHvtx5Re1KsAvZIDLYz_rguekRXA9C01IIhvXeyGUI8MQqvLWBmkIE8n_-ZT3c7McRrZcGZ-JWAwzzoa0tsZfe5ShdwCjWdg0usDa0XIWO1xZg3jNR1KN0gaueMTR8BKQLWzrwFOMKBJugzMpwv5LgnpoESPDlJcwfzbYHAYwCCAy__0vuORKqzBwW-SdXCveipw229F1HQliJPqppiaz_jZ5nA.jpg">
+            <h1>Fun &amp; Love</h1>
             <p>Trova la tua anima gemella o divertiti a conoscere nuove persone!</p>
         </section>
 
@@ -218,7 +218,7 @@
         <section id="links">
             <a id="love-button"
                class="my-button"
-               href="https://t.me/funandlovebot" 
+               href="tg://resolve?domain=funandlovebot" 
                target="_blank">
                 Apri il Bot <span style="margin-left: 8px;">❤️</span>
             </a>
@@ -233,6 +233,9 @@
          * Crea e aggiunge un cuoricino che verrà poi rimosso 
          * dopo la fine dell’animazione.
          */
+
+
+        
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -257,11 +260,11 @@
             // (dovrebbe corrispondere alla durata dell'animazione + un po' di margine)
             setTimeout(() => {
                 heart.remove();
-            }, 7000);
+            }, 25000);
         }
 
         // Genera nuovi cuoricini a intervalli regolari (es. 1 secondo).
-        setInterval(createHeart, 1000);
+        setInterval(createHeart, 500);
     </script>
 </body>
 </html>
