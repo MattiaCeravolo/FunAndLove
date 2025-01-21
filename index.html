@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <!-- L'include seguente serve se vuoi sfruttare funzioni del Telegram Web App JS SDK -->
+    <!-- Se vuoi usare alcune funzioni del Telegram WebApp JS SDK, lascia lo script sotto -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" 
-          content="width=device-width, 
-                   initial-scale=1.0, 
-                   maximum-scale=1.0, 
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
                    user-scalable=no">
+
+    <title>Incontri Fun & Love</title>
+
+    <!-- Font Google (opzionale) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <title>Incontri Fun &amp; Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* -- STILI DI BASE -- */
+        /* ---------- STILI GENERALI DELLA PAGINA ---------- */
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #ff007f, #8000ff);
@@ -26,7 +28,7 @@
             padding: 0;
             text-align: center;
             color: #fff;
-            overflow: hidden;
+            overflow: hidden; /* Evita scroll orizzontale */
             height: 100vh;
             width: 100vw;
             display: flex;
@@ -36,8 +38,8 @@
         }
 
         @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
@@ -47,30 +49,21 @@
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             width: 90%;
-            max-width: 300px;
+            max-width: 320px;
             max-height: 90%;
             overflow-y: auto;
             text-align: center;
         }
-        
-        header {
-            color: #fff;
-            font-family: 'Pacifico', cursive;
-            font-size: 26px;
-            text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
-            margin-bottom: 15px;
-        }
-        
+
+        /* ---------- PROFILO / TESTO INTRODUTTIVO ---------- */
         #profile {
             position: relative;
             margin-top: 10px;
             padding: 10px;
-            text-align: center;
         }
-
         #profile img {
-            width: 122px;
-            height: 122px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s ease;
@@ -79,6 +72,7 @@
             transform: rotate(10deg) scale(1.1);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
         }
+        /* Effetto alone dietro l'immagine */
         #profile::before {
             content: '';
             position: absolute;
@@ -92,48 +86,35 @@
             transform: translate(-50%, -50%);
             z-index: -1;
         }
-
         #profile h1 {
             margin-top: 10px;
-            font-size: 22px;
+            font-family: 'Pacifico', cursive;
+            font-size: 24px;
             font-weight: 700;
-            padding: 5px;
-            border-radius: 15px;
-            text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
             color: #fff;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
         }
-
         #profile p {
             font-size: 16px;
             font-weight: 400;
-            padding: 5px;
-            border-radius: 15px;
-            text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+            line-height: 1.4;
             color: #fff;
+            margin-top: 8px;
         }
-        
+
+        /* ---------- SEZIONE LINK ---------- */
         #links {
-            position: relative;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
             flex-direction: column;
-            z-index: 2;
-        }
-
-        .link-container {
-            display: flex;
             align-items: center;
-            gap: 15px;
-            margin-top: 15px;
         }
 
-        /* Pulsanti generici */
+        /* Bottone personalizzato */
         .my-button {
             position: relative;
             display: inline-block;
             padding: 15px 30px;
+            margin-top: 20px;
             background: #ff007f;
             color: #fff;
             text-decoration: none;
@@ -144,11 +125,8 @@
             font-weight: bold;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
         }
+        /* Effetto scorrimento lucido sul bottone */
         .my-button::before {
             content: '';
             position: absolute;
@@ -170,41 +148,57 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* Esempio di due classi differenziate per styling e icona */
-        .telegram-button {
-            background: #0088cc; /* colore tipico Telegram */
+        /* ---------- CUORI ANIMATI ---------- */
+        .heart {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            transform: rotate(-45deg);
+            background: #ff007f;
+            animation: disperse 6s ease-out forwards; 
+            /* Durata animazione personalizzabile; 
+               se vuoi cuori che vagano più a lungo, 
+               metti 15s, 20s... */
+            z-index: 0;   /* così stanno dietro al bottone */
+            opacity: 0;
         }
-        .onlyfans-button {
-            background: #00AFF0; 
+        /* Per creare la classica forma a cuore (due cerchietti in alto + quadrato ruotato) */
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ff007f;
+            border-radius: 50%;
         }
-
-        /* Esempio di piccola icona Telegram */
-        .tg-3d {
-            width: 20px;
-            height: 20px;
-            margin-left: 10px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' ... etc ... %3E%3C/svg%3E");
-            background-size: cover;
+        .heart::before {
+            top: -2.5px;
+            left: 0;
         }
-
-        @keyframes bounceRotate {
-            0%, 100% {
-                transform: translateY(-3px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(3px) rotate(180deg);
-            }
+        .heart::after {
+            top: 0;
+            left: -2.5px;
         }
-         
-        @keyframes pulse {
+        /* Keyframes per far disperdere i cuori in modo casuale */
+        @keyframes disperse {
             0% {
-                transform: scale(1);
+                transform: scale(1) 
+                           translate(calc(  10vw * var(--rnd-x) - 5vw ), 
+                                     calc(   5vh * var(--rnd-y) - 2.5vh )) 
+                           rotate(0deg);
+                opacity: 0;
             }
-            50% {
-                transform: scale(1.05);
+            10% {
+                opacity: 1;
             }
             100% {
-                transform: scale(1);
+                /* ingrandisci e spara il cuore lontano su tutto lo schermo */
+                transform: scale(3)
+                           translate(calc( 50vw * var(--rnd-x) - 25vw ), 
+                                     calc( 50vh * var(--rnd-y) - 25vh ))
+                           rotate(360deg);
+                opacity: 0;
             }
         }
     </style>
@@ -212,40 +206,63 @@
 
 <body>
     <div class="container">
-
+        <!-- SEZIONE PROFILO / TESTO -->
         <section id="profile">
-            <!-- Qui puoi sostituire l'immagine con qualcosa di rappresentativo -->
+            <!-- Immagine di esempio, sostituisci con la tua -->
             <img src="https://via.placeholder.com/150" alt="Profile Picture">
-            <!-- Titolo/Nome -->
             <h1>Incontri Fun &amp; Love</h1>
-            <!-- Descrizione breve -->
-            <p>Trova la tua metà o divertiti a conoscere nuove persone nel modo più semplice!</p>
+            <p>Trova la tua anima gemella o divertiti a conoscere nuove persone!</p>
         </section>
 
+        <!-- SEZIONE CON IL SOLO BOTTONE -->
         <section id="links">
-            <!-- Link al Bot Telegram -->
-            <a class="my-button telegram-button" 
-               href="https://t.me/NOME_DEL_TUO_BOT" 
+            <a id="love-button"
+               class="my-button"
+               href="https://t.me/funandlovebot" 
                target="_blank">
-               Apri il Bot
-               <div class="tg-3d"></div>
-            </a>
-
-            <!-- Esempio di un secondo link (se ne hai altri) 
-                 Cambia la classe e i riferimenti se vuoi un altro stile/colore -->
-            <a class="my-button onlyfans-button" 
-               href="https://onlyfans.com/IL_TUO_LINK" 
-               target="_blank">
-               Link Extra (esempio)
+                Apri il Bot <span style="margin-left: 8px;">❤️</span>
             </a>
         </section>
-
     </div>
 
-    <!-- Se desideri includere codice JS aggiuntivo, puoi farlo qui sotto -->
     <script>
-        // Eventuali logiche JavaScript personalizzate
-        // ...
+        /* Se vuoi prendere il riferimento del bottone */
+        const loveButton = document.getElementById('love-button');
+
+        /**
+         * Crea e aggiunge un cuoricino che verrà poi rimosso 
+         * dopo la fine dell’animazione.
+         */
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+
+            // Calcola la posizione di partenza: 
+            // al centro del bottone (all'incirca)
+            const rect = loveButton.getBoundingClientRect();
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+
+            heart.style.left = startX + 'px';
+            heart.style.top  = startY + 'px';
+
+            // Variabili CSS per spostare il cuore in direzioni casuali
+            heart.style.setProperty('--rnd-x', Math.random());
+            heart.style.setProperty('--rnd-y', Math.random());
+
+            // Aggiunge il cuoricino al body
+            document.body.appendChild(heart);
+
+            // Rimuove il cuoricino dopo tot secondi 
+            // (dovrebbe corrispondere alla durata dell'animazione + un po' di margine)
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        // Genera nuovi cuoricini a intervalli regolari (es. 1 secondo).
+        setInterval(createHeart, 1000);
     </script>
 </body>
 </html>
+
